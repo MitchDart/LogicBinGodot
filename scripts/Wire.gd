@@ -5,7 +5,8 @@ extends Node2D
 export var start_point = Vector2(0.0,0.0) setget set_startpoint
 export var end_point = Vector2(0.0,0.0) setget set_endpoint
 
-export var tension = 1.0 setget set_tension
+export var tension_start = 1.0 setget set_tension_start
+export var tension_end = 1.0 setget set_tension_end
 
 export var start_point_direction = 0.0 setget set_start_point_direction
 export var end_point_direction = 0.0 setget set_end_point_direction
@@ -23,9 +24,14 @@ func set_endpoint(new_endpoint):
 		end_point = new_endpoint
 		update()
 		
-func set_tension(new_tension):
-	if tension != new_tension:
-		tension = new_tension
+func set_tension_start(new_tension):
+	if tension_start != new_tension:
+		tension_start = new_tension
+		update()
+		
+func set_tension_end(new_tension):
+	if tension_end != new_tension:
+		tension_end = new_tension
 		update()
 		
 func set_start_point_direction(new_start_point_direction):
@@ -44,9 +50,9 @@ func _ready():
 
 func _draw():
 	var cp1 = Transform2D.IDENTITY
-	cp1 = cp1.rotated(deg2rad(start_point_direction)).translated(Vector2(0.0,tension))
+	cp1 = cp1.rotated(start_point_direction).translated(Vector2(0.0,tension_start))
 	var cp2 = Transform2D.IDENTITY
-	cp2 = cp2.rotated(deg2rad(end_point_direction)).translated(Vector2(0.0,-tension))
+	cp2 = cp2.rotated(end_point_direction).translated(Vector2(0.0,-tension_end))
 	
 	var inA = Vector2(0.0,0.0)
 	var inB = cp2.xform(Vector2(0.0,0.0))

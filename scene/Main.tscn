@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scene/AndGate.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
 [ext_resource path="res://shaders/Grid.shader" type="Shader" id=3]
 [ext_resource path="res://scripts/Grid.gd" type="Script" id=4]
-[ext_resource path="res://scripts/Wire.gd" type="Script" id=5]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=6]
 [ext_resource path="res://scene/XNorGate.tscn" type="PackedScene" id=7]
 
@@ -36,14 +35,20 @@ z_as_relative = false
 mesh = SubResource( 2 )
 script = ExtResource( 4 )
 
-[node name="Wire" type="Node2D" parent="."]
-script = ExtResource( 5 )
-tension = 50.0
-
 [node name="AndGate" parent="." instance=ExtResource( 1 )]
 position = Vector2( 162.53, 73.0754 )
+z_index = 5
+z_as_relative = false
 
 [node name="XNorGate" parent="." instance=ExtResource( 7 )]
 position = Vector2( -132.292, -110.873 )
+z_index = 5
+z_as_relative = false
 [connection signal="on_drag" from="AndGate" to="." method="_on_component_drag"]
+[connection signal="on_input_click" from="AndGate" to="." method="_on_component_input_click"]
+[connection signal="on_input_hover" from="AndGate" to="." method="_on_component_input_hover"]
+[connection signal="on_output_click" from="AndGate" to="." method="_on_component_output_click"]
 [connection signal="on_drag" from="XNorGate" to="." method="_on_component_drag"]
+[connection signal="on_input_click" from="XNorGate" to="." method="_on_component_input_click"]
+[connection signal="on_input_hover" from="XNorGate" to="." method="_on_component_input_hover"]
+[connection signal="on_output_click" from="XNorGate" to="." method="_on_component_output_click"]
