@@ -31,7 +31,7 @@ func get_output_position(index):
 func _process(delta):
 	if mouse_dragging:
 		position = get_global_mouse_position() + mouse_dragging_local_position
-		emit_signal("on_drag")
+		emit_signal("on_drag", self)
 
 func _input(event):
 	if event is InputEventMouseButton:

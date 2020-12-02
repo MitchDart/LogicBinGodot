@@ -13,7 +13,7 @@ func _ready():
 	pass # Replace with function body.
 	
 func _input(event):
-	if mouse_hover && event is InputEventMouseButton && event.button_index == BUTTON_LEFT && event.is_pressed():
+	if mouse_hover && event is InputEventMouseButton && event.button_index == BUTTON_LEFT:
 		emit_signal("on_click", self)
 		get_tree().set_input_as_handled()
 				

@@ -14,6 +14,8 @@ export var end_point_direction = 0.0 setget set_end_point_direction
 export var width = 10 
 export var border_width = 5 
 
+var curve = Curve2D.new()
+
 func set_startpoint(new_startpoint):
 	if start_point != new_startpoint:
 		start_point = new_startpoint
@@ -49,19 +51,26 @@ func _ready():
 	pass # Replace with function body.
 
 func _draw():
+	var clamped_tension_start = min(tension_start, start_point.distance_to(end_point))
+	var clamped_tension_end = min(tension_end, start_point.distance_to(end_point))
+	
 	var cp1 = Transform2D.IDENTITY
-	cp1 = cp1.rotated(start_point_direction).translated(Vector2(0.0,tension_start))
+	cp1 = cp1.rotated(start_point_direction).translated(Vector2(0.0,clamped_tension_start))
 	var cp2 = Transform2D.IDENTITY
-	cp2 = cp2.rotated(end_point_direction).translated(Vector2(0.0,-tension_end))
+	cp2 = cp2.rotated(end_point_direction).translated(Vector2(0.0,-clamped_tension_end))
 	
 	var inA = Vector2(0.0,0.0)
 	var inB = cp2.xform(Vector2(0.0,0.0))
 	var outA = cp1.xform(Vector2(0.0,0.0))
 	var outB = Vector2(0.0,0.0)
 	
-	var curve = Curve2D.new()
+	
+	
+	curve.clear_points()
 	curve.add_point(start_point, inA, outA)
 	curve.add_point(end_point, inB, outB)
+	
 	var points = curve.tessellate()
+	
 	draw_polyline(points, Color.black, width, true)
 	draw_polyline(points, Color.white, width - border_width, true)
