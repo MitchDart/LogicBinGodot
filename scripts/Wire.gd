@@ -1,6 +1,6 @@
-tool
-
 extends Node2D
+
+class_name Wire
 
 export var start_point = Vector2(0.0,0.0) setget set_startpoint
 export var end_point = Vector2(0.0,0.0) setget set_endpoint

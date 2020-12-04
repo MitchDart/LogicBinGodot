@@ -1,14 +1,14 @@
 extends MeshInstance2D
 
+class_name Component
+
 signal on_drag(component)
 signal on_output_click(component,index)
 signal on_input_click(component,index)
 signal on_output_hover(component,index, out)
 signal on_input_hover(component,index, out)
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export var enabled = false;
 
 var mouse_body_hover = false;
 var mouse_dragging = false;
@@ -26,7 +26,6 @@ func get_input_position(index):
 	
 func get_output_position(index):
 	return outputs[index].get_global_position()
-	
 
 func _process(delta):
 	if mouse_dragging:
@@ -34,7 +33,7 @@ func _process(delta):
 		emit_signal("on_drag", self)
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if enabled && event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if mouse_body_hover && event.is_pressed():
 				mouse_dragging_local_position = (position - get_global_mouse_position())

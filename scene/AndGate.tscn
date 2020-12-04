@@ -1,19 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Component.gd" type="Script" id=1]
 [ext_resource path="res://images/gates/and.svg" type="Texture" id=2]
-[ext_resource path="res://images/io.svg" type="Texture" id=3]
-[ext_resource path="res://scripts/IO.gd" type="Script" id=4]
+[ext_resource path="res://scene/IO.tscn" type="PackedScene" id=5]
 
 [sub_resource type="QuadMesh" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 0.266845, 0.268651 )
-
-[sub_resource type="QuadMesh" id=3]
-
-[sub_resource type="CircleShape2D" id=4]
-radius = 0.099718
 
 [node name="AndGate" type="MeshInstance2D"]
 scale = Vector2( 100, 100 )
@@ -26,63 +20,21 @@ script = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
 
-[node name="InB" type="Node2D" parent="."]
+[node name="InB" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0.15, -0.59 )
-
-[node name="Mesh" type="MeshInstance2D" parent="InB"]
-mesh = SubResource( 3 )
-texture = ExtResource( 3 )
-script = ExtResource( 4 )
 index = 1
 
-[node name="Tween" type="Tween" parent="InB/Mesh"]
-
-[node name="Area2D" type="Area2D" parent="InB"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InB/Area2D"]
-shape = SubResource( 4 )
-
-[node name="InA" type="Node2D" parent="."]
+[node name="InA" parent="." instance=ExtResource( 5 )]
 position = Vector2( -0.15, -0.59 )
 
-[node name="Mesh" type="MeshInstance2D" parent="InA"]
-mesh = SubResource( 3 )
-texture = ExtResource( 3 )
-script = ExtResource( 4 )
-
-[node name="Tween" type="Tween" parent="InA/Mesh"]
-
-[node name="Area2D" type="Area2D" parent="InA"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InA/Area2D"]
-shape = SubResource( 4 )
-
-[node name="OutA" type="Node2D" parent="."]
+[node name="OutA" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 0.59 )
-
-[node name="Mesh" type="MeshInstance2D" parent="OutA"]
-mesh = SubResource( 3 )
-texture = ExtResource( 3 )
-script = ExtResource( 4 )
 is_output = true
-
-[node name="Tween" type="Tween" parent="OutA/Mesh"]
-
-[node name="Area2D" type="Area2D" parent="OutA"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OutA/Area2D"]
-shape = SubResource( 4 )
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
-[connection signal="on_click" from="InB/Mesh" to="." method="_on_io_click"]
-[connection signal="on_hover" from="InB/Mesh" to="." method="_on_io_hover"]
-[connection signal="mouse_entered" from="InB/Area2D" to="InB/Mesh" method="_on_Area2D_mouse_entered"]
-[connection signal="mouse_exited" from="InB/Area2D" to="InB/Mesh" method="_on_Area2D_mouse_exited"]
-[connection signal="on_click" from="InA/Mesh" to="." method="_on_io_click"]
-[connection signal="on_hover" from="InA/Mesh" to="." method="_on_io_hover"]
-[connection signal="mouse_entered" from="InA/Area2D" to="InA/Mesh" method="_on_Area2D_mouse_entered"]
-[connection signal="mouse_exited" from="InA/Area2D" to="InA/Mesh" method="_on_Area2D_mouse_exited"]
-[connection signal="on_click" from="OutA/Mesh" to="." method="_on_io_click"]
-[connection signal="on_hover" from="OutA/Mesh" to="." method="_on_io_hover"]
-[connection signal="mouse_entered" from="OutA/Area2D" to="OutA/Mesh" method="_on_Area2D_mouse_entered"]
-[connection signal="mouse_exited" from="OutA/Area2D" to="OutA/Mesh" method="_on_Area2D_mouse_exited"]
+[connection signal="on_click" from="InB" to="." method="_on_io_click"]
+[connection signal="on_hover" from="InB" to="." method="_on_io_hover"]
+[connection signal="on_click" from="InA" to="." method="_on_io_click"]
+[connection signal="on_hover" from="InA" to="." method="_on_io_hover"]
+[connection signal="on_click" from="OutA" to="." method="_on_io_click"]
+[connection signal="on_hover" from="OutA" to="." method="_on_io_hover"]
