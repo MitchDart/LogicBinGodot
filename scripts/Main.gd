@@ -58,6 +58,8 @@ func _on_component_click(component):
 	reset_selected_states()
 	component.selected = true
 	selected_component = component
+	for connection in search_for_connections(component):
+		connection.selected = true
 
 # Called when any component is dragged around the scene
 func _on_component_drag(component):
@@ -219,6 +221,8 @@ func enable_only_ouputs():
 func reset_selected_states():
 	if selected_component != null: 
 		selected_component.selected = false
+		for connection in search_for_connections(selected_component):
+			connection.selected = false
 		selected_component = null
 	if selected_connection != null:
 		selected_connection.selected = false
