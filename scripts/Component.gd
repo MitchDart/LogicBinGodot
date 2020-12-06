@@ -7,8 +7,10 @@ signal on_output_click(component,index)
 signal on_input_click(component,index)
 signal on_output_hover(component,index, out)
 signal on_input_hover(component,index, out)
+signal on_click(component)
 
 export var enabled = false;
+export var selected = false setget set_selected;
 
 var mouse_body_hover = false;
 var mouse_dragging = false;
@@ -36,6 +38,7 @@ func _input(event):
 	if enabled && event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if mouse_body_hover && event.is_pressed():
+				emit_signal("on_click", self)
 				mouse_dragging_local_position = (position - get_global_mouse_position())
 				self.mouse_dragging = true
 				get_tree().set_input_as_handled()
@@ -65,3 +68,7 @@ func _on_io_hover(io, out):
 		emit_signal("on_output_hover",self , io.index, out)
 	else:
 		emit_signal("on_input_hover",self, io.index, out)
+		
+func set_selected(value):
+	selected = value
+	get_node("Selected").visible = selected

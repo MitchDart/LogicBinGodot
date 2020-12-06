@@ -1,20 +1,21 @@
-const Wire = preload("res://scene/Wire.tscn")
+extends Node2D
+
 const Component = preload("res://scripts/Component.gd")
 
-class_name Connection
+signal on_click(connection)
 
-var wire : Wire
+class_name Connection 
+
+export var selected = false setget set_selected
+
 var input_component : Component
 var output_component : Component
 var input_component_IO_index = 0
 var output_component_IO_index = 0
-var scene
 
-func _init(s):
-	scene = s
-	wire = Wire.instance()
-	wire.z_index = 0
-	scene.add_child(wire)
+func set_selected(value):
+	selected = value
+	get_node("Wire").selected = value
 
 func set_input(ic, ii):
 	input_component = ic
@@ -25,20 +26,20 @@ func set_output(oc, oi):
 	output_component_IO_index = oi
 
 func wire_from_output_to_mouse():
-	wire.start_point = output_component.get_output_position(0)
-	wire.end_point = scene.get_global_mouse_position()
-	wire.start_point_direction = output_component.rotation
-	wire.end_point_direction = output_component.rotation
-	wire.tension_start = 100
-	wire.tension_end = 0
+	get_node("Wire").start_point = output_component.get_output_position(0)
+	get_node("Wire").end_point = get_global_mouse_position()
+	get_node("Wire").start_point_direction = output_component.rotation
+	get_node("Wire").end_point_direction = output_component.rotation
+	get_node("Wire").tension_start = 100
+	get_node("Wire").tension_end = 0
 	
 func wire_from_output_to_input():
-	wire.start_point = output_component.get_output_position(output_component_IO_index)
-	wire.start_point_direction = output_component.rotation
-	wire.tension_start = 100
-	wire.end_point = input_component.get_input_position(input_component_IO_index)
-	wire.end_point_direction = input_component.rotation + PI*2
-	wire.tension_end = 100
+	get_node("Wire").start_point = output_component.get_output_position(output_component_IO_index)
+	get_node("Wire").start_point_direction = output_component.rotation
+	get_node("Wire").tension_start = 100
+	get_node("Wire").end_point = input_component.get_input_position(input_component_IO_index)
+	get_node("Wire").end_point_direction = input_component.rotation + PI*2
+	get_node("Wire").tension_end = 100
 
-func destroy():
-	scene.remove_child(wire)
+func _on_wire_click(wire):
+	emit_signal("on_click", self)

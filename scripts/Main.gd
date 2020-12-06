@@ -3,9 +3,8 @@ extends Node2D
 #Gate scene declaration
 const ANDGATE = preload("res://scene/AndGate.tscn")
 const XNORGATE = preload("res://scene/XNorGate.tscn")
+const CONNECTION = preload("res://scene/Connection.tscn")
 
-#Class imports
-const Connection = preload("res://scripts/Connection.gd")
 
 #Current creating connection state
 var creating_connection = null
@@ -39,13 +38,16 @@ func _input(event):
 	elif event is InputEventKey && event.scancode == KEY_2 && event.is_pressed():
 		spawn_xnor_gate()
 
+# Called when any component is clicked on
+func _on_component_click(component):
+	component.selected = true
 
 # Called when any component is dragged around the scene
 func _on_component_drag(component):
 	# Find and connections for that component
-	var connections = search_for_connections(component)
+	var found_connections = search_for_connections(component)
 	# For each of the connections draw the wire between the two components
-	for connection in connections:
+	for connection in found_connections:
 		connection.wire_from_output_to_input()
 	
 # Called when a component input is clicked
@@ -77,7 +79,7 @@ func on_input_while_creating_connection(event):
 		creating_connection.wire_from_output_to_mouse()
 	# If the user clicks on anything else destroy the connection
 	elif event is InputEventMouseButton && event.is_pressed():
-		creating_connection.destroy()
+		remove_child(creating_connection)
 		creating_connection = null
 		enable_only_ouputs()
 	
@@ -92,7 +94,8 @@ func on_input_while_creating_component(event):
 
 # Creates a new connection and stores it globally
 func create_new_connection(component, index):
-	creating_connection = Connection.new(self)
+	creating_connection = CONNECTION.instance()
+	add_child(creating_connection)
 	creating_connection.set_output(component,index)
 	creating_connection.wire_from_output_to_mouse()
 	enable_only_unoccupied_inputs()
@@ -101,6 +104,7 @@ func create_new_connection(component, index):
 func complete_new_connection(component, index):
 	if is_input_occupied(component, index):
 		return
+	creating_connection.connect("on_click", self, "_on_connection_click")
 	creating_connection.set_input(component,index)
 	creating_connection.wire_from_output_to_input()
 	connections.push_back(creating_connection)
@@ -114,11 +118,16 @@ func search_for_connections(component):
 		if connection.input_component == component || connection.output_component == component:
 			found_connections.push_back(connection)
 	return found_connections
+	
+# Called when any component is clicked on
+func _on_connection_click(connection):
+	connection.selected = true
 
 #--- Components ----
 
 # Setup component by connecting signals and dropping onto canvas
 func complete_new_component():
+	creating_component.connect("on_click", self, "_on_component_click")
 	creating_component.connect("on_drag", self, "_on_component_drag")
 	creating_component.connect("on_input_click", self,"_on_component_input_click")
 	creating_component.connect("on_input_hover", self, "_on_component_input_hover")

@@ -13,7 +13,7 @@ var _previousPosition: Vector2 = Vector2(0, 0);
 var _moveCamera: bool = false;
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT:
+	if event is InputEventMouseButton && event.button_index == BUTTON_MIDDLE:
 		if event.is_pressed():
 			get_tree().set_input_as_handled()
 			_previousPosition = event.position;

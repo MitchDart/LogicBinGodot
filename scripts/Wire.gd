@@ -1,6 +1,10 @@
+tool
+
 extends Node2D
 
 class_name Wire
+
+signal on_click(wire)
 
 export var start_point = Vector2(0.0,0.0) setget set_startpoint
 export var end_point = Vector2(0.0,0.0) setget set_endpoint
@@ -11,10 +15,18 @@ export var tension_end = 1.0 setget set_tension_end
 export var start_point_direction = 0.0 setget set_start_point_direction
 export var end_point_direction = 0.0 setget set_end_point_direction
 
-export var width = 10 
-export var border_width = 5 
+export var selected = false setget set_selected
+
+export var width = 10 setget set_width
+export var border = 5 setget set_border
 
 var curve = Curve2D.new()
+
+func set_selected(new_selected):
+	if selected != new_selected:
+		selected = new_selected
+		get_node("Select").visible = selected
+	
 
 func set_startpoint(new_startpoint):
 	if start_point != new_startpoint:
@@ -45,6 +57,14 @@ func set_end_point_direction(new_end_point_direction):
 	if end_point_direction != new_end_point_direction:
 		end_point_direction = new_end_point_direction
 		update()
+		
+func set_border(new_border):
+	border = new_border
+	update()
+	
+func set_width(new_width):
+	width = new_width
+	update()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -64,13 +84,20 @@ func _draw():
 	var outA = cp1.xform(Vector2(0.0,0.0))
 	var outB = Vector2(0.0,0.0)
 	
-	
-	
 	curve.clear_points()
 	curve.add_point(start_point, inA, outA)
 	curve.add_point(end_point, inB, outB)
 	
-	var points = curve.tessellate()
-	
+	var points = curve.tessellate(6,2)
 	draw_polyline(points, Color.black, width, true)
-	draw_polyline(points, Color.white, width - border_width, true)
+	draw_polyline(points, Color.white, width - border, true)
+	
+	get_node("Select").points = points
+	
+func _unhandled_input(event):
+	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT && event.is_pressed():
+		var closest_point = curve.get_closest_point(get_local_mouse_position())
+		var distance_to_mouse = closest_point.distance_to(get_local_mouse_position())
+		if distance_to_mouse < border:
+			emit_signal("on_click", self)
+			get_tree().set_input_as_handled()

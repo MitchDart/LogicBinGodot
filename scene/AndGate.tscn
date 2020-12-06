@@ -1,13 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/Component.gd" type="Script" id=1]
 [ext_resource path="res://images/gates/and.svg" type="Texture" id=2]
+[ext_resource path="res://images/gates/selected/and.png" type="Texture" id=3]
 [ext_resource path="res://scene/IO.tscn" type="PackedScene" id=5]
 
 [sub_resource type="QuadMesh" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 0.266845, 0.268651 )
+
+[sub_resource type="QuadMesh" id=3]
 
 [node name="AndGate" type="MeshInstance2D"]
 scale = Vector2( 100, 100 )
@@ -30,6 +33,13 @@ position = Vector2( -0.15, -0.59 )
 [node name="OutA" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 0.59 )
 is_output = true
+
+[node name="Selected" type="MeshInstance2D" parent="."]
+visible = false
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+mesh = SubResource( 3 )
+texture = ExtResource( 3 )
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
 [connection signal="on_click" from="InB" to="." method="_on_io_click"]
