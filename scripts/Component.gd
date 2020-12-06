@@ -15,6 +15,7 @@ export var selected = false setget set_selected;
 var mouse_body_hover = false;
 var mouse_dragging = false;
 var mouse_dragging_local_position = get_local_mouse_position();
+var mouse_dragging_global_position = get_global_mouse_position();
 	
 onready var inputs = [get_node("InA"), get_node("InB")]
 onready var outputs = [get_node("OutA")]
@@ -29,26 +30,28 @@ func get_input_position(index):
 func get_output_position(index):
 	return outputs[index].get_global_position()
 
-func _process(delta):
-	if mouse_dragging:
-		position = get_global_mouse_position() + mouse_dragging_local_position
-		emit_signal("on_drag", self)
-
 func _input(event):
 	if enabled && event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if mouse_body_hover && event.is_pressed():
-				emit_signal("on_click", self)
 				mouse_dragging_local_position = (position - get_global_mouse_position())
+				mouse_dragging_global_position = get_global_mouse_position()
 				self.mouse_dragging = true
 				get_tree().set_input_as_handled()
 			else:
+				if mouse_dragging_global_position.distance_to(get_global_mouse_position()) < 5:
+					emit_signal("on_click", self)
+					get_tree().set_input_as_handled()
 				self.mouse_dragging = false
 		if event.button_index == BUTTON_RIGHT && event.is_pressed():
 			if mouse_body_hover:
 				self.rotate(PI/2)
 				emit_signal("on_drag", self)
 				get_tree().set_input_as_handled()
+	if event is InputEventMouseMotion && mouse_dragging:
+		position = get_global_mouse_position() + mouse_dragging_local_position
+		emit_signal("on_drag", self)
+		get_tree().set_input_as_handled()
 
 
 func _on_Area2D_mouse_entered():

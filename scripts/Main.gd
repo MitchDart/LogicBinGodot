@@ -18,6 +18,12 @@ var connections = []
 #List of active components
 var components = []
 
+#Current selected component state
+var selected_component = null
+
+#Current selected connection state
+var selected_connection = null
+
 #--- Events ----
 
 # Called when the node enters the scene tree for the first time.
@@ -37,10 +43,21 @@ func _input(event):
 		spawn_and_gate()
 	elif event is InputEventKey && event.scancode == KEY_2 && event.is_pressed():
 		spawn_xnor_gate()
+	elif event is InputEventKey && event.scancode == KEY_DELETE && event.is_pressed():
+		if selected_connection != null:
+			delete_connection(selected_connection)
+		if selected_component != null:
+			delete_component(selected_component)
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT && event.is_pressed():
+		reset_selected_states()
 
 # Called when any component is clicked on
 func _on_component_click(component):
+	reset_selected_states()
 	component.selected = true
+	selected_component = component
 
 # Called when any component is dragged around the scene
 func _on_component_drag(component):
@@ -82,6 +99,7 @@ func on_input_while_creating_connection(event):
 		remove_child(creating_connection)
 		creating_connection = null
 		enable_only_ouputs()
+		get_tree().set_input_as_handled()
 	
 #Called if a user inputs while creating a component	
 func on_input_while_creating_component(event):
@@ -89,6 +107,7 @@ func on_input_while_creating_component(event):
 		creating_component.position = get_global_mouse_position()
 	elif event is InputEventMouseButton && event.is_pressed():
 		complete_new_component()
+		get_tree().set_input_as_handled()
 
 #--- Connections ----
 
@@ -119,9 +138,17 @@ func search_for_connections(component):
 			found_connections.push_back(connection)
 	return found_connections
 	
-# Called when any component is clicked on
+# Called when any connection is clicked on
 func _on_connection_click(connection):
+	reset_selected_states()
 	connection.selected = true
+	selected_connection = connection
+	
+# When a connection is deleted
+func delete_connection(connection):
+	connections.remove(connections.find(connection))
+	remove_child(connection)
+	reset_selected_states()
 
 #--- Components ----
 
@@ -154,6 +181,15 @@ func spawn_and_gate():
 func spawn_xnor_gate():
 	var xnorGate = XNORGATE.instance()
 	create_new_component(xnorGate)
+	
+# When a connection is deleted
+func delete_component(component):
+	components.remove(components.find(component))
+	remove_child(component)
+	var found_connections = search_for_connections(component)
+	for connection in found_connections:
+		delete_connection(connection)
+	reset_selected_states()
 
 #--- Utilites ----
 
@@ -179,3 +215,11 @@ func enable_only_ouputs():
 			input.enabled = false
 		for output in component.outputs:
 			output.enabled = true
+			
+func reset_selected_states():
+	if selected_component != null: 
+		selected_component.selected = false
+		selected_component = null
+	if selected_connection != null:
+		selected_connection.selected = false
+		selected_connection = null
