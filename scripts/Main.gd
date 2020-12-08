@@ -1,7 +1,13 @@
 extends Node2D
 
 #Gate scene declaration
+const ORGATE = preload("res://scene/OrGate.tscn")
+const NORGATE = preload("res://scene/NOrGate.tscn")
+const XORGATE = preload("res://scene/XOrGate.tscn")
+const NOTGATE = preload("res://scene/NotGate.tscn")
+const BUFFERGATE = preload("res://scene/BufferGate.tscn")
 const ANDGATE = preload("res://scene/AndGate.tscn")
+const NANDGATE = preload("res://scene/NAndGate.tscn")
 const XNORGATE = preload("res://scene/XNorGate.tscn")
 const CONNECTION = preload("res://scene/Connection.tscn")
 const SWITCH = preload("res://scene/Switch.tscn")
@@ -43,29 +49,41 @@ func _ready():
 	
 # Called on any input from user
 func _input(event):
+	#Create gates
 	if event is InputEventKey && event.is_pressed():
 		reset_creating_component()
 		reset_creating_connection()
+		if event.scancode == KEY_1:
+			create_new_component(SWITCH.instance())
+		elif event.scancode == KEY_2:
+			create_new_component(LIGHT.instance())
+		elif event.scancode == KEY_3:
+			create_new_component(NOTGATE.instance())
+		elif event.scancode == KEY_4:
+			create_new_component(ANDGATE.instance())
+		elif event.scancode == KEY_5:
+			create_new_component(ORGATE.instance())
+		elif event.scancode == KEY_6:
+			create_new_component(NANDGATE.instance())
+		elif event.scancode == KEY_7:
+			create_new_component(NORGATE.instance())
+		elif event.scancode == KEY_8:
+			create_new_component(XORGATE.instance())
+		elif event.scancode == KEY_9:
+			create_new_component(XNORGATE.instance())
+		elif event.scancode == KEY_0:
+			create_new_component(BUFFERGATE.instance())
+		elif event.scancode == KEY_DELETE:
+			if selected_connection != null:
+				delete_connection(selected_connection)
+			if selected_component != null:
+				delete_component(selected_component)
 	# if we are creating a component at the time handle accordingly
 	if creating_component != null:
 		on_input_while_creating_component(event)
 	# if we are creating a connection at the time handle accordingly
 	elif creating_connection != null:
 		on_input_while_creating_connection(event)
-	# Create gates
-	elif event is InputEventKey && event.scancode == KEY_1 && event.is_pressed():
-		spawn_and_gate()
-	elif event is InputEventKey && event.scancode == KEY_2 && event.is_pressed():
-		spawn_xnor_gate()
-	elif event is InputEventKey && event.scancode == KEY_3 && event.is_pressed():
-		spawn_switch()
-	elif event is InputEventKey && event.scancode == KEY_4 && event.is_pressed():
-		spawn_light()
-	elif event is InputEventKey && event.scancode == KEY_DELETE && event.is_pressed():
-		if selected_connection != null:
-			delete_connection(selected_connection)
-		if selected_component != null:
-			delete_component(selected_component)
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT && event.is_pressed():

@@ -13,5 +13,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if inputs.size() == 2:
-		on = inputs[0].on && inputs[1].on
+	on = inputs[0].on && inputs[1].on

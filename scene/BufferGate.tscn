@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/BufferGate.gd" type="Script" id=1]
+[ext_resource path="res://images/gates/buffer.svg" type="Texture" id=2]
+[ext_resource path="res://scene/IO.tscn" type="PackedScene" id=3]
+[ext_resource path="res://images/gates/selected/buffer.png" type="Texture" id=4]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 0.266845, 0.268651 )
+
+[sub_resource type="QuadMesh" id=3]
+
+[node name="BufferGate" type="MeshInstance2D"]
+scale = Vector2( 100, 100 )
+mesh = SubResource( 1 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="InA" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -0.59 )
+
+[node name="OutA" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 0.59 )
+is_output = true
+
+[node name="Selected" type="MeshInstance2D" parent="."]
+visible = false
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+mesh = SubResource( 3 )
+texture = ExtResource( 4 )
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
+[connection signal="on_click" from="InA" to="." method="_on_io_click"]
+[connection signal="on_hover" from="InA" to="." method="_on_io_hover"]
+[connection signal="on_click" from="OutA" to="." method="_on_io_click"]
+[connection signal="on_hover" from="OutA" to="." method="_on_io_hover"]

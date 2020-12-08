@@ -11,6 +11,5 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	on = !(inputs[0].on != inputs[1].on)
+	on = !(inputs[0].on && inputs[1].on)
