@@ -5,7 +5,7 @@ const ANDGATE = preload("res://scene/AndGate.tscn")
 const XNORGATE = preload("res://scene/XNorGate.tscn")
 const CONNECTION = preload("res://scene/Connection.tscn")
 const SWITCH = preload("res://scene/Switch.tscn")
-
+const LIGHT = preload("res://scene/Light.tscn")
 
 #Current creating connection state
 var creating_connection = null
@@ -27,12 +27,25 @@ var selected_connection = null
 
 #--- Events ----
 
+# Called every frame to set states of all components
+func _process(delta):
+	for connection in connections:
+		var from_component = connection.output_component
+		from_component.outputs[connection.output_component_IO_index].on = from_component.on
+		connection.on = from_component.on
+		var to_component = connection.input_component
+		to_component.inputs[connection.input_component_IO_index].on = from_component.on
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 	
 # Called on any input from user
 func _input(event):
+	if event is InputEventKey && event.is_pressed():
+		reset_creating_component()
+		reset_creating_connection()
 	# if we are creating a component at the time handle accordingly
 	if creating_component != null:
 		on_input_while_creating_component(event)
@@ -46,6 +59,8 @@ func _input(event):
 		spawn_xnor_gate()
 	elif event is InputEventKey && event.scancode == KEY_3 && event.is_pressed():
 		spawn_switch()
+	elif event is InputEventKey && event.scancode == KEY_4 && event.is_pressed():
+		spawn_light()
 	elif event is InputEventKey && event.scancode == KEY_DELETE && event.is_pressed():
 		if selected_connection != null:
 			delete_connection(selected_connection)
@@ -100,19 +115,26 @@ func on_input_while_creating_connection(event):
 	if event is InputEventMouseMotion && creating_connection.input_component == null:
 		creating_connection.wire_from_output_to_mouse()
 	# If the user clicks on anything else destroy the connection
-	elif event is InputEventMouseButton && event.is_pressed():
-		remove_child(creating_connection)
-		creating_connection = null
-		enable_only_ouputs()
+	elif event is InputEventMouseButton && event.button_index == BUTTON_LEFT && event.is_pressed():
+		reset_creating_connection()
 		get_tree().set_input_as_handled()
+
+func reset_creating_connection():
+	remove_child(creating_connection)
+	creating_connection = null
+	enable_only_ouputs()
 	
 #Called if a user inputs while creating a component	
 func on_input_while_creating_component(event):
 	if event is InputEventMouseMotion:
 		creating_component.position = get_global_mouse_position()
-	elif event is InputEventMouseButton && event.is_pressed():
+	elif event is InputEventMouseButton && event.button_index == BUTTON_LEFT && event.is_pressed():
 		complete_new_component()
 		get_tree().set_input_as_handled()
+		
+func reset_creating_component():
+	remove_child(creating_component)
+	creating_component = null
 
 #--- Connections ----
 
@@ -190,6 +212,10 @@ func spawn_xnor_gate():
 func spawn_switch():
 	var switch = SWITCH.instance()
 	create_new_component(switch)
+	
+func spawn_light():
+	var light = LIGHT.instance()
+	create_new_component(light)
 	
 # When a connection is deleted
 func delete_component(component):

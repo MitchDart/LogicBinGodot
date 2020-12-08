@@ -9,6 +9,8 @@ export var is_output = false
 export var index = 0
 export var enabled = true setget set_enabled
 
+var on = false
+
 var mouse_hover = false
 
 func set_enabled(value):

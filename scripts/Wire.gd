@@ -6,6 +6,9 @@ class_name Wire
 
 signal on_click(wire)
 
+const ON_COLOR = Color("d2d000")
+const OFF_COLOR = Color("ffffff")
+
 export var start_point = Vector2(0.0,0.0) setget set_startpoint
 export var end_point = Vector2(0.0,0.0) setget set_endpoint
 
@@ -16,6 +19,7 @@ export var start_point_direction = 0.0 setget set_start_point_direction
 export var end_point_direction = 0.0 setget set_end_point_direction
 
 export var selected = false setget set_selected
+export var on = false setget set_on
 
 export var width = 10 setget set_width
 export var border = 5 setget set_border
@@ -65,10 +69,16 @@ func set_border(new_border):
 func set_width(new_width):
 	width = new_width
 	update()
+	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+	
+func set_on(value):
+	if value != on:
+		on = value
+		update()
 
 func _draw():
 	var clamped_tension_start = min(tension_start, start_point.distance_to(end_point))
@@ -90,7 +100,10 @@ func _draw():
 	
 	var points = curve.tessellate(6,2)
 	draw_polyline(points, Color.black, width, true)
-	draw_polyline(points, Color("d2d000"), width - border, true)
+	if on:
+		draw_polyline(points, ON_COLOR, width - border, true)
+	else:
+		draw_polyline(points, OFF_COLOR, width - border, true)
 	
 	get_node("Select").points = points
 	

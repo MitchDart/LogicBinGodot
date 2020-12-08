@@ -12,8 +12,6 @@ func _ready():
 #func _process(delta):
 #	pass
 
-var on = false
-
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton && event.is_pressed():
 		if on:

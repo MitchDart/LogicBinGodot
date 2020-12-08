@@ -7,6 +7,12 @@ signal on_click(connection)
 class_name Connection 
 
 export var selected = false setget set_selected
+export var on = false setget set_on
+
+func set_on(value):
+	if on != value:
+		on = value
+		get_node("Wire").on = on
 
 var input_component : Component
 var output_component : Component

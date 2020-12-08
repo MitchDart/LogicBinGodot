@@ -8,9 +8,11 @@ signal on_input_click(component,index)
 signal on_output_hover(component,index, out)
 signal on_input_hover(component,index, out)
 signal on_click(component)
+signal logic_state_changed(component)
 
 export var enabled = false;
 export var selected = false setget set_selected;
+export var on = false setget set_on;
 
 var mouse_body_hover = false;
 var mouse_dragging = false;
@@ -52,11 +54,11 @@ func _input(event):
 					emit_signal("on_click", self)
 					get_tree().set_input_as_handled()
 				self.mouse_dragging = false
-		if event.button_index == BUTTON_RIGHT && event.is_pressed():
-			if mouse_body_hover:
-				self.rotate(PI/2)
-				emit_signal("on_drag", self)
-				get_tree().set_input_as_handled()
+	if event is InputEventMouseButton && event.button_index == BUTTON_RIGHT && event.is_pressed():
+		if mouse_body_hover:
+			self.rotate(PI/2)
+			emit_signal("on_drag", self)
+			get_tree().set_input_as_handled()
 	if event is InputEventMouseMotion && mouse_dragging:
 		position = get_global_mouse_position() + mouse_dragging_local_position
 		emit_signal("on_drag", self)
@@ -86,3 +88,8 @@ func set_selected(value):
 	var selected_node = get_node("Selected")
 	if selected_node != null:
 		selected_node.visible = selected
+		
+func set_on(value):
+	if on != value:
+		on = value
+		emit_signal("logic_state_changed", self)
