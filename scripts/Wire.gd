@@ -90,7 +90,7 @@ func _draw():
 	
 	var points = curve.tessellate(6,2)
 	draw_polyline(points, Color.black, width, true)
-	draw_polyline(points, Color.white, width - border, true)
+	draw_polyline(points, Color("d2d000"), width - border, true)
 	
 	get_node("Select").points = points
 	

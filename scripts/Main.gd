@@ -4,6 +4,7 @@ extends Node2D
 const ANDGATE = preload("res://scene/AndGate.tscn")
 const XNORGATE = preload("res://scene/XNorGate.tscn")
 const CONNECTION = preload("res://scene/Connection.tscn")
+const SWITCH = preload("res://scene/Switch.tscn")
 
 
 #Current creating connection state
@@ -43,6 +44,8 @@ func _input(event):
 		spawn_and_gate()
 	elif event is InputEventKey && event.scancode == KEY_2 && event.is_pressed():
 		spawn_xnor_gate()
+	elif event is InputEventKey && event.scancode == KEY_3 && event.is_pressed():
+		spawn_switch()
 	elif event is InputEventKey && event.scancode == KEY_DELETE && event.is_pressed():
 		if selected_connection != null:
 			delete_connection(selected_connection)
@@ -183,6 +186,10 @@ func spawn_and_gate():
 func spawn_xnor_gate():
 	var xnorGate = XNORGATE.instance()
 	create_new_component(xnorGate)
+	
+func spawn_switch():
+	var switch = SWITCH.instance()
+	create_new_component(switch)
 	
 # When a connection is deleted
 func delete_component(component):

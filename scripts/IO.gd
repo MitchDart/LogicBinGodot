@@ -3,6 +3,8 @@ extends Node2D
 signal on_click(io)
 signal on_hover(io)
 
+class_name IO
+
 export var is_output = false
 export var index = 0
 export var enabled = true setget set_enabled

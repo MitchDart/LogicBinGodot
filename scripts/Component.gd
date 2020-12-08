@@ -1,4 +1,4 @@
-extends MeshInstance2D
+extends Node2D
 
 class_name Component
 
@@ -17,12 +17,21 @@ var mouse_dragging = false;
 var mouse_dragging_local_position = get_local_mouse_position();
 var mouse_dragging_global_position = get_global_mouse_position();
 	
-onready var inputs = [get_node("InA"), get_node("InB")]
-onready var outputs = [get_node("OutA")]
+var inputs = []
+var outputs = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	for child in get_children():
+		if child is IO:
+			if child.is_output:
+				if outputs.size() < child.index + 1:
+					outputs.resize(child.index + 1)
+				outputs[child.index] = child
+			else:
+				if inputs.size() < child.index + 1:
+					inputs.resize(child.index + 1)
+				inputs[child.index] = child
 	
 func get_input_position(index):
 	return inputs[index].get_global_position()
@@ -74,4 +83,6 @@ func _on_io_hover(io, out):
 		
 func set_selected(value):
 	selected = value
-	get_node("Selected").visible = selected
+	var selected_node = get_node("Selected")
+	if selected_node != null:
+		selected_node.visible = selected
