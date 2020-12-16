@@ -31,3 +31,8 @@ jobs:
         with:
           name: LogicBin
           preset: HTML5
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Client - HTML5
+          path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
