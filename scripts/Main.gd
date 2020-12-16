@@ -191,6 +191,10 @@ func _on_connection_click(connection):
 	
 # When a connection is deleted
 func delete_connection(connection):
+	var from_component = connection.output_component
+	from_component.outputs[connection.output_component_IO_index].on = false
+	var to_component = connection.input_component
+	to_component.inputs[connection.input_component_IO_index].on = false
 	connections.remove(connections.find(connection))
 	remove_child(connection)
 	reset_selected_states()
@@ -212,7 +216,6 @@ func complete_new_component():
 # Create new component and store it on creating component
 func create_new_component(component : Component):
 	component.z_index = 5
-	component.rotation_degrees = -90
 	component.position = get_global_mouse_position()
 	add_child(component)
 	creating_component = component

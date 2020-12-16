@@ -13,6 +13,7 @@ extents = Vector2( 0.266845, 0.268651 )
 [sub_resource type="QuadMesh" id=3]
 
 [node name="NOrGate" type="MeshInstance2D"]
+rotation = -1.5708
 scale = Vector2( 100, 100 )
 mesh = SubResource( 1 )
 texture = ExtResource( 2 )
