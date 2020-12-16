@@ -1,5 +1,6 @@
 extends Component
 
+class_name Switch
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"

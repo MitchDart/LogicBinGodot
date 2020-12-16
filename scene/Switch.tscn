@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/Switch.gd" type="Script" id=1]
 [ext_resource path="res://images/switch/on.svg" type="Texture" id=2]
@@ -11,25 +11,28 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 5 ) ],
-"loop": false,
-"name": "off",
-"speed": 60.0
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": false,
 "name": "on",
 "speed": 60.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "off",
+"speed": 60.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10.8428, 34.25 )
 
-[sub_resource type="CapsuleShape2D" id=5]
+[sub_resource type="CapsuleShape2D" id=3]
 radius = 61.6161
 height = 307.327
 
 [sub_resource type="QuadMesh" id=4]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 34.3387, 34.5672 )
 
 [node name="Switch" type="Node2D"]
 script = ExtResource( 1 )
@@ -46,11 +49,11 @@ playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 23.2605, -2.8623 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -23.6023, -2.8623 )
-shape = SubResource( 3 )
+position = Vector2( -23.6023, -2.52859 )
+shape = SubResource( 2 )
 
 [node name="SwitchNobArea" type="Area2D" parent="."]
 scale = Vector2( 0.2, 0.2 )
@@ -58,7 +61,7 @@ z_index = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwitchNobArea"]
 position = Vector2( -0.51918, -18.2411 )
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 
 [node name="OutA" parent="." instance=ExtResource( 7 )]
 position = Vector2( 0, 55 )
@@ -72,6 +75,12 @@ position = Vector2( 0, -2 )
 scale = Vector2( 100, 100 )
 mesh = SubResource( 4 )
 texture = ExtResource( 8 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -0.264862, -2.3838 )
+shape = SubResource( 5 )
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
 [connection signal="input_event" from="SwitchNobArea" to="." method="_on_Area2D_input_event"]
