@@ -18,7 +18,7 @@ var mouse_body_hover = false;
 var mouse_dragging = false;
 var mouse_dragging_local_position = get_local_mouse_position();
 var mouse_dragging_global_position = get_global_mouse_position();
-	
+
 var inputs = []
 var outputs = []
 
@@ -34,10 +34,10 @@ func _ready():
 				if inputs.size() < child.index + 1:
 					inputs.resize(child.index + 1)
 				inputs[child.index] = child
-	
+
 func get_input_position(index):
 	return inputs[index].get_global_position()
-	
+
 func get_output_position(index):
 	return outputs[index].get_global_position()
 
@@ -82,13 +82,13 @@ func _on_io_hover(io, out):
 		emit_signal("on_output_hover",self , io.index, out)
 	else:
 		emit_signal("on_input_hover",self, io.index, out)
-		
+
 func set_selected(value):
 	selected = value
 	var selected_node = get_node("Selected")
 	if selected_node != null:
 		selected_node.visible = selected
-		
+
 func set_on(value):
 	if on != value:
 		on = value
