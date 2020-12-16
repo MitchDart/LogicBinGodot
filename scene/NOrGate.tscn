@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/NOrGate.gd" type="Script" id=1]
 [ext_resource path="res://images/gates/nor.svg" type="Texture" id=2]
@@ -11,6 +11,9 @@
 extents = Vector2( 0.266845, 0.268651 )
 
 [sub_resource type="QuadMesh" id=3]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 0.271848, 0.315024 )
 
 [node name="NOrGate" type="MeshInstance2D"]
 rotation = -1.5708
@@ -41,6 +44,12 @@ show_behind_parent = true
 scale = Vector2( 1.5, 1.5 )
 mesh = SubResource( 3 )
 texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -0.0028063, 0.0364799 )
+shape = SubResource( 4 )
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
 [connection signal="on_click" from="InA" to="." method="_on_io_click"]
