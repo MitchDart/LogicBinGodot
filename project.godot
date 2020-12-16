@@ -29,11 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/SelectBox.gd"
 }, {
-"base": "Component",
-"class": "Switch",
-"language": "GDScript",
-"path": "res://scripts/Switch.gd"
-}, {
 "base": "Node2D",
 "class": "Wire",
 "language": "GDScript",
@@ -44,7 +39,6 @@ _global_script_class_icons={
 "Connection": "",
 "IO": "",
 "SelectBox": "",
-"Switch": "",
 "Wire": ""
 }
 
