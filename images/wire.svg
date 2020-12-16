@@ -6,13 +6,25 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   width="1"
-   height="10"
-   viewBox="0 0 0.26458334 2.6458333"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="20"
+   height="20"
+   viewBox="0 0 5.2916667 5.2916665"
    version="1.1"
    id="svg8">
   <defs
      id="defs2">
+    <linearGradient
+       id="linearGradient2277">
+      <stop
+         style="stop-color:#008080;stop-opacity:1;"
+         offset="0"
+         id="stop2273" />
+      <stop
+         style="stop-color:#008080;stop-opacity:0;"
+         offset="1"
+         id="stop2275" />
+    </linearGradient>
     <linearGradient
        id="linearGradient984"
        osb:paint="solid">
@@ -21,6 +33,15 @@
          offset="0"
          id="stop982" />
     </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient2277"
+       id="linearGradient2279-8"
+       x1="-17.197916"
+       y1="13.129026"
+       x2="-14.552083"
+       y2="13.129026"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(34.395835,-26.258052)" />
   </defs>
   <metadata
      id="metadata5">
@@ -36,39 +57,28 @@
   </metadata>
   <g
      id="layer2"
-     transform="translate(-10.483193,-14.552083)">
-    <rect
-       style="fill:#b3b3b3;stroke-width:0.264583"
-       id="rect102"
-       width="5.2916665"
-       height="5.2916665"
-       x="3.8686104"
-       y="14.552083" />
-    <rect
-       style="fill:#b3b3b3;stroke-width:0.264583"
-       id="rect104"
-       width="5.2916665"
-       height="5.2916665"
-       x="17.097776"
-       y="14.552083" />
-    <rect
-       style="fill:#b3b3b3;stroke-width:0.264583"
-       id="rect104-6"
-       width="5.2916665"
-       height="5.2916665"
-       x="23.71236"
-       y="14.552083" />
-  </g>
+     transform="translate(-10.483193,-14.552083)" />
   <g
      id="layer1"
      transform="translate(-10.483193,-14.552083)">
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 10.483193,14.816666 h 0.264583"
-       id="path4974" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 10.483193,16.933333 h 0.264583"
-       id="path4976" />
+    <g
+       id="g1008"
+       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="translate(-21.166666)">
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.499999;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1006"
+         width="5.2916665"
+         height="2.6458333"
+         x="31.64987"
+         y="15.875" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.387298;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1006-2"
+         width="5.2916665"
+         height="1.5874991"
+         x="31.649872"
+         y="16.404167" />
+    </g>
   </g>
 </svg>

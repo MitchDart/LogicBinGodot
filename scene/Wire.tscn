@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/Wire.gd" type="Script" id=1]
 [ext_resource path="res://images/wire_selected.png" type="Texture" id=2]
+[ext_resource path="res://images/wire.svg" type="Texture" id=3]
 
 [node name="Wire" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,4 +17,12 @@ points = PoolVector2Array( 0, 0, 0.108719, 3.23776, 0.430298, 6.39038, 0.95787, 
 width = 20.0
 default_color = Color( 1, 1, 1, 1 )
 texture = ExtResource( 2 )
+texture_mode = 2
+
+[node name="Line" type="Line2D" parent="."]
+show_behind_parent = true
+points = PoolVector2Array( 0, 0, 0.108719, 3.23776, 0.430298, 6.39038, 0.95787, 9.4606, 1.68457, 12.4512, 2.60353, 15.3648, 3.70789, 18.2043, 4.99077, 20.9724, 6.44531, 23.6719, 8.06465, 26.3054, 9.84192, 28.8757, 11.7702, 31.3857, 13.8428, 33.8379, 16.0526, 36.2352, 18.3929, 38.5803, 23.4375, 43.125, 28.9215, 47.4939, 34.79, 51.709, 47.4609, 59.7656, 102.539, 90.2344, 115.21, 98.291, 121.078, 102.506, 126.563, 106.875, 131.607, 111.42, 133.947, 113.765, 136.157, 116.162, 138.23, 118.614, 140.158, 121.124, 141.935, 123.695, 143.555, 126.328, 145.009, 129.028, 146.292, 131.796, 147.396, 134.635, 148.315, 137.549, 149.042, 140.539, 149.57, 143.61, 149.891, 146.762, 150, 150 )
+width = 20.0
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 3 )
 texture_mode = 2
