@@ -35,7 +35,6 @@ height = 307.327
 extents = Vector2( 34.3387, 34.5672 )
 
 [node name="Switch" type="Node2D"]
-rotation = -1.5708
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -53,7 +52,7 @@ position = Vector2( 23.2605, -2.8623 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -23.6023, -2.8623 )
+position = Vector2( -23.6023, -2.52859 )
 shape = SubResource( 2 )
 
 [node name="SwitchNobArea" type="Area2D" parent="."]
