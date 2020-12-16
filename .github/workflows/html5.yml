@@ -29,10 +29,10 @@ jobs:
         id: build
         uses: josephbmanley/build-godot-action@v1.4.1
         with:
-          name: LogicBin
+          name: index.html
           preset: HTML5
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: Client - HTML5
-          path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ github.workspace }}/${{ steps.build.outputs.build }}
