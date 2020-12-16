@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/SelectBox.gd" type="Script" id=1]
+
+[node name="SelectBox" type="Node2D"]
+z_index = 10
+z_as_relative = false
+script = ExtResource( 1 )
+colour_fill = Color( 0, 0.501961, 0.501961, 0.101961 )
+colour_border = Color( 0, 0.501961, 0.501961, 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+visible = false
+polygon = PoolVector2Array( 0, 0, 100, 0, 100, 100, 0, 100 )
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

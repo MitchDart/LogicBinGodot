@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/Switch.gd" type="Script" id=1]
 [ext_resource path="res://images/switch/on.svg" type="Texture" id=2]
@@ -30,6 +30,9 @@ radius = 61.6161
 height = 307.327
 
 [sub_resource type="QuadMesh" id=4]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 34.3387, 34.5672 )
 
 [node name="Switch" type="Node2D"]
 rotation = -1.5708
@@ -73,6 +76,12 @@ position = Vector2( 0, -2 )
 scale = Vector2( 100, 100 )
 mesh = SubResource( 4 )
 texture = ExtResource( 8 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -0.264862, -2.3838 )
+shape = SubResource( 5 )
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
 [connection signal="input_event" from="SwitchNobArea" to="." method="_on_Area2D_input_event"]
