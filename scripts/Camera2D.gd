@@ -8,7 +8,7 @@ func window_resize():
 	var current_size = OS.get_window_size()
 	scale = current_size
 
-export var _zoomSensitivity = 0.05
+export var _zoomSensitivity = 0.04
 var _previousPosition: Vector2 = Vector2(0, 0);
 var _moveCamera: bool = false;
 

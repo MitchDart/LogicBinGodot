@@ -59,11 +59,11 @@ func _input(event):
 			self.rotate(PI/2)
 			emit_signal("on_drag", self)
 			get_tree().set_input_as_handled()
-	if event is InputEventMouseMotion && mouse_dragging:
+
+func _process(delta):
+	if mouse_dragging:
 		position = get_global_mouse_position() + mouse_dragging_local_position
 		emit_signal("on_drag", self)
-		get_tree().set_input_as_handled()
-
 
 func _on_Area2D_mouse_entered():
 	mouse_body_hover = true;

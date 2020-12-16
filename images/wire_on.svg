@@ -62,23 +62,26 @@
      id="layer1"
      transform="translate(-10.483193,-14.552083)">
     <g
-       id="g1008"
+       id="g1008-5"
        style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
-       transform="translate(-21.166666)">
-      <rect
-         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.499999;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect1006"
-         width="5.2916665"
-         height="2.6458333"
-         x="31.64987"
-         y="15.875" />
-      <rect
-         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.387298;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect1006-2"
-         width="5.2916665"
-         height="1.5874991"
-         x="31.649872"
-         y="16.404167" />
+       transform="translate(-27.781249)">
+      <g
+         id="g1112">
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.499999;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect1006-5"
+           width="5.2916665"
+           height="2.6458333"
+           x="38.264442"
+           y="15.875" />
+        <rect
+           style="fill:#d2d000;fill-opacity:1;stroke:none;stroke-width:0.387298;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect1006-2-9"
+           width="5.2916665"
+           height="1.5874991"
+           x="38.264442"
+           y="16.404167" />
+      </g>
     </g>
   </g>
 </svg>

@@ -9,6 +9,9 @@ signal on_click(wire)
 const ON_COLOR = Color("d2d000")
 const OFF_COLOR = Color("ffffff")
 
+const OFF_TEXTURE = preload("res://images/wire.svg")
+const ON_TEXTURE = preload("res://images/wire_on.svg")
+
 export var start_point = Vector2(0.0,0.0) setget set_startpoint
 export var end_point = Vector2(0.0,0.0) setget set_endpoint
 
@@ -78,7 +81,13 @@ func _ready():
 func set_on(value):
 	if value != on:
 		on = value
-		update()
+		set_texture()
+		
+func set_texture():
+	if on:
+		get_node("Line").texture = ON_TEXTURE
+	else:
+		get_node("Line").texture = OFF_TEXTURE
 
 func _draw():
 	var clamped_tension_start = min(tension_start, start_point.distance_to(end_point))
@@ -99,13 +108,8 @@ func _draw():
 	curve.add_point(end_point, inB, outB)
 	
 	var points = curve.tessellate(6,2)
-	draw_polyline(points, Color.black, width, true)
-	if on:
-		draw_polyline(points, ON_COLOR, width - border, true)
-	else:
-		draw_polyline(points, OFF_COLOR, width - border, true)
-	
 	get_node("Select").points = points
+	get_node("Line").points = points
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT && event.is_pressed():
